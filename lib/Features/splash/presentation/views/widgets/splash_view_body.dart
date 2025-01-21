@@ -1,5 +1,8 @@
 import 'package:bookly_app/Core/utils/Assets/assets.dart';
+import 'package:bookly_app/Features/home/presentation/views/home_view.dart';
+import 'package:bookly_app/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -14,14 +17,6 @@ class _SplashViewBodyState extends State<SplashViewBody> {
   void initState() {
     super.initState();
     _animatedOpacity();
-  }
-
-  void _animatedOpacity() {
-    Future.delayed(const Duration(milliseconds: 500), () {
-      setState(() {
-        _opacirty = 1.0;
-      });
-    });
   }
 
   @override
@@ -46,5 +41,17 @@ class _SplashViewBodyState extends State<SplashViewBody> {
         height: 200,
       ),
     );
+  }
+
+  void _animatedOpacity() {
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        _opacirty = 1.0;
+      });
+      Future.delayed(const Duration(milliseconds: 500), () {
+        Get.to(() => const HomeView(),
+            transition: Transition.fadeIn, duration: kTransitionDuration);
+      });
+    });
   }
 }
