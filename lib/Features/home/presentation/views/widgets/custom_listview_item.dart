@@ -6,16 +6,13 @@ class CustomListViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.25,
-      child: AspectRatio(
-        aspectRatio: 3 / 4,
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            image: const DecorationImage(
-                image: AssetImage(kTestImage), fit: BoxFit.fill),
-          ),
+    return AspectRatio(
+      aspectRatio: 3 / 4,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          image: const DecorationImage(
+              image: AssetImage(kTestImage), fit: BoxFit.fill),
         ),
       ),
     );
