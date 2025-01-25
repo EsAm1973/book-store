@@ -24,6 +24,9 @@ class HomeViewBody extends StatelessWidget {
               'Best Saller',
               style: Styles.textStyle18,
             ),
+            SizedBox(
+              height: 20,
+            ),
             BestSallerListViewItem(),
           ],
         ),
@@ -38,6 +41,7 @@ class BestSallerListViewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
             height: 125,
@@ -50,7 +54,21 @@ class BestSallerListViewItem extends StatelessWidget {
                       image: AssetImage(kTestImage), fit: BoxFit.fill),
                 ),
               ),
-            ))
+            )),
+        const SizedBox(
+          width: 30,
+        ),
+        Column(children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width * .6,
+            child: Text(
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              'Harry Potter and the Goblet of Fire',
+              style: Styles.textStyle20.copyWith(fontWeight: FontWeight.w600),
+            ),
+          )
+        ])
       ],
     );
   }
