@@ -1,3 +1,4 @@
+import 'package:bookly_app/Core/utils/styles.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/custom_app_bar.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/custom_listview.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +9,22 @@ class HomeViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SafeArea(
-      child: Column(
-        children: [
-          CustomAppBar(),
-          CustomListView(),
-        ],
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CustomAppBar(),
+            CustomListView(),
+            SizedBox(
+              height: 50,
+            ),
+            Text(
+              'Best Saller',
+              style: Styles.titleMeidum,
+            )
+          ],
+        ),
       ),
     );
   }
