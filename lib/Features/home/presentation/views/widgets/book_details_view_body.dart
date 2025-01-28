@@ -1,9 +1,6 @@
-import 'package:bookly_app/Core/utils/styles.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/book_rating_bestseller_item.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/bookdetails_action_button.dart';
+import 'package:bookly_app/Features/home/presentation/views/widgets/book_details_view_section.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/custom_app_bar_bookdetails.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/custom_book_image.dart';
-import 'package:bookly_app/Features/home/presentation/views/widgets/similer_books_listview.dart';
+import 'package:bookly_app/Features/home/presentation/views/widgets/similer_books_view_section.dart';
 import 'package:flutter/material.dart';
 
 class BookDetailsViewBody extends StatelessWidget {
@@ -11,78 +8,33 @@ class BookDetailsViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
-
-    return CustomScrollView(
+    return const CustomScrollView(
       slivers: [
         SliverFillRemaining(
-          hasScrollBody: false,
+            hasScrollBody: false,
             child: Material(
-          type: MaterialType.transparency,
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: Column(
-                children: [
-                  const BookDetailsCustomAppBar(),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: width * .18),
-                    child: const CustomBookImage(),
-                  ),
-                  const SizedBox(
-                    height: 43,
-                  ),
-                  Text(
-                    style: Styles.textStyle30
-                        .copyWith(fontWeight: FontWeight.bold),
-                    'The Jungle Book',
-                  ),
-                  const SizedBox(
-                    height: 6,
-                  ),
-                  Opacity(
-                    opacity: 0.8,
-                    child: Text(
-                      style: Styles.textStyle18.copyWith(
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.w500,
+              type: MaterialType.transparency,
+              child: SafeArea(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: Column(
+                    children: [
+                      BookDetailsCustomAppBar(),
+                      BookDetailsSection(),
+                      Expanded(
+                        child: SizedBox(
+                          height: 50,
+                        ),
                       ),
-                      'Rudyard Kipling',
-                    ),
+                      SimilerBooksSection(),
+                      SizedBox(
+                        height: 30,
+                      ),
+                    ],
                   ),
-                  const SizedBox(
-                    height: 18,
-                  ),
-                  const BookRating(),
-                  const SizedBox(
-                    height: 37,
-                  ),
-                  const ButtonAction(),
-                  const Expanded(
-                    child: SizedBox(
-                      height: 50,
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'You can also like',
-                      style: Styles.textStyle16
-                          .copyWith(fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  const SimilerBooksListView(),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                ],
+                ),
               ),
-            ),
-          ),
-        )),
+            )),
       ],
     );
   }
