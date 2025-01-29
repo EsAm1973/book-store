@@ -11,9 +11,7 @@ class BookListViewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => {
-        GoRouter.of(context).push(AppRouter.kBookDetails)
-      },
+      onTap: () => {GoRouter.of(context).push(AppRouter.kBookDetails)},
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -41,7 +39,8 @@ class BookListViewItem extends StatelessWidget {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   'Harry Potter and the Goblet of Fire',
-                  style: Styles.textStyle20.copyWith(fontWeight: FontWeight.w600),
+                  style:
+                      Styles.textStyle20.copyWith(fontWeight: FontWeight.w600),
                 ),
               ),
               const SizedBox(
@@ -56,8 +55,8 @@ class BookListViewItem extends StatelessWidget {
                 children: [
                   Text(
                     '19.99 \$',
-                    style:
-                        Styles.textStyle20.copyWith(fontWeight: FontWeight.bold),
+                    style: Styles.textStyle20
+                        .copyWith(fontWeight: FontWeight.bold),
                   ),
                   const BookRating(),
                 ],
