@@ -3,6 +3,7 @@ import 'package:bookly_app/Core/utils/api_service.dart';
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
 import 'package:bookly_app/Features/home/data/repos/home_repo.dart';
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 
 class HomeRepoImplementaion implements HomeRepo {
   final ApiService apiService;
@@ -21,8 +22,11 @@ class HomeRepoImplementaion implements HomeRepo {
       }
       return right(
           books); // Because you use Either so you must return right side;
-    } on Exception {
-      return left(ServerFailure());
+    } on Exception catch (e) {
+      if (e is DioException) {
+        return left((ServerFailure.fromDioException(e)));
+      }
+      return left(ServerFailure(errorMessage: e.toString()));
     }
   }
 
