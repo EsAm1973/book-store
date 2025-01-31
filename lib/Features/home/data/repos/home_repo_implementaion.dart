@@ -37,7 +37,7 @@ class HomeRepoImplementaion implements HomeRepo {
           endpoint: 'volumes?q=subject:Programming&Filtering=free-ebooks');
       List<BookModel> books = [];
       for (var item in data['items']) {
-        books.add(BookModel.fromJson(item));
+        books.add(BookModel.fromMap(item));
       }
       return right(
           books); // Because you use Either so you must return right side;

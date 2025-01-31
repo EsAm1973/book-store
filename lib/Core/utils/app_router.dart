@@ -26,7 +26,8 @@ abstract class AppRouter {
             BlocProvider(
               create: (context) =>
                   //Look at file service locator in utilis folder
-                  FeaturedBooksCubit(getIt.get<HomeRepoImplementaion>()),
+                  FeaturedBooksCubit(getIt.get<HomeRepoImplementaion>())
+                    ..fetchFeaturedBooks(),
             ),
             BlocProvider(
               create: (context) =>
