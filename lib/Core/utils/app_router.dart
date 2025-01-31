@@ -32,7 +32,8 @@ abstract class AppRouter {
             BlocProvider(
               create: (context) =>
                   //Look at file service locator in utilis folder
-                  NewestBooksCubit(getIt.get<HomeRepoImplementaion>()),
+                  NewestBooksCubit(getIt.get<HomeRepoImplementaion>())
+                    ..fetchNewestBooks(),
             ),
           ],
           child: const HomeView(),

@@ -27,8 +27,12 @@ class VolumeInfo extends Equatable {
   final String? previewLink;
   final String? infoLink;
   final String? canonicalVolumeLink;
+  final int? averageRating;
+  final int? ratingsCount;
 
   const VolumeInfo({
+    this.averageRating,
+    this.ratingsCount,
     this.title,
     this.authors,
     this.publisher,
@@ -51,37 +55,46 @@ class VolumeInfo extends Equatable {
   });
 
   factory VolumeInfo.fromMap(Map<String, dynamic> data) => VolumeInfo(
-        title: data['title'] as String?,
-        authors: (data['authors'] as List<dynamic>?)?.cast<String>(),
-        publisher: data['publisher'] as String?,
-        publishedDate: data['publishedDate'] as String?,
-        description: data['description'] as String?,
-        industryIdentifiers: (data['industryIdentifiers'] as List<dynamic>?)
-            ?.map((e) => IndustryIdentifier.fromMap(e as Map<String, dynamic>))
+        averageRating: (data['averageRating'] as num?)?.toInt(),
+        ratingsCount: (data['ratingsCount'] as num?)?.toInt(),
+        title: data['title']?.toString(),
+        authors: (data['authors'] as List<dynamic>?)
+            ?.map((e) => e?.toString())
+            .whereType<String>()
             .toList(),
-        readingModes: data['readingModes'] == null
-            ? null
-            : ReadingModes.fromMap(
-                data['readingModes'] as Map<String, dynamic>),
-        pageCount: data['pageCount'] as int?,
-        printType: data['printType'] as String?,
-        categories: (data['categories'] as List<dynamic>?)?.cast<String>(),
-        maturityRating: data['maturityRating'] as String?,
+        publisher: data['publisher']?.toString(),
+        publishedDate: data['publishedDate']?.toString(),
+        description: data['description']?.toString(),
+        industryIdentifiers: (data['industryIdentifiers'] as List<dynamic>?)
+            ?.map((e) => e is Map<String, dynamic>
+                ? IndustryIdentifier.fromMap(e)
+                : null)
+            .whereType<IndustryIdentifier>()
+            .toList(),
+        readingModes: data['readingModes'] is Map<String, dynamic>
+            ? ReadingModes.fromMap(data['readingModes'] as Map<String, dynamic>)
+            : null,
+        pageCount: (data['pageCount'] as num?)?.toInt(),
+        printType: data['printType']?.toString(),
+        categories: (data['categories'] as List<dynamic>?)
+            ?.map((e) => e?.toString())
+            .whereType<String>()
+            .toList(),
+        maturityRating: data['maturityRating']?.toString(),
         allowAnonLogging: data['allowAnonLogging'] as bool?,
-        contentVersion: data['contentVersion'] as String?,
-        panelizationSummary: data['panelizationSummary'] == null
-            ? null
-            : PanelizationSummary.fromMap(
-                data['panelizationSummary'] as Map<String, dynamic>),
-        imageLinks: data['imageLinks'] == null
-            ? null
-            : ImageLinks.fromMap(data['imageLinks'] as Map<String, dynamic>),
-        language: data['language'] as String?,
-        previewLink: data['previewLink'] as String?,
-        infoLink: data['infoLink'] as String?,
-        canonicalVolumeLink: data['canonicalVolumeLink'] as String?,
+        contentVersion: data['contentVersion']?.toString(),
+        panelizationSummary: data['panelizationSummary'] is Map<String, dynamic>
+            ? PanelizationSummary.fromMap(
+                data['panelizationSummary'] as Map<String, dynamic>)
+            : null,
+        imageLinks: data['imageLinks'] is Map<String, dynamic>
+            ? ImageLinks.fromMap(data['imageLinks'] as Map<String, dynamic>)
+            : null,
+        language: data['language']?.toString(),
+        previewLink: data['previewLink']?.toString(),
+        infoLink: data['infoLink']?.toString(),
+        canonicalVolumeLink: data['canonicalVolumeLink']?.toString(),
       );
-
   Map<String, dynamic> toMap() => {
         'title': title,
         'authors': authors,
