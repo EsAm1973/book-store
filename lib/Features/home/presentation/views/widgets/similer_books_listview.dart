@@ -4,6 +4,7 @@ import 'package:bookly_app/Features/home/presentation/manager/SimilierBooksCubit
 import 'package:bookly_app/Features/home/presentation/views/widgets/custom_book_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class SimilerBooksListView extends StatelessWidget {
   const SimilerBooksListView({super.key});
@@ -16,13 +17,21 @@ class SimilerBooksListView extends StatelessWidget {
           return SizedBox(
             height: MediaQuery.of(context).size.height * 0.13,
             child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
+                itemCount: state.books.length,
                 itemBuilder: (context, index) {
-                  return const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 5.0),
-                    child: CustomBookImage(
-                      imageUrl:
-                          'https://images.unsplash.com/photo-1541963463532-d68292c34b19?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Ym9va3xlbnwwfHwwfHx8MA%3D%3D',
+                  return GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context)
+                          .push('/bookDetails', extra: state.books[index]);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                      child: CustomBookImage(
+                        imageUrl: state
+                            .books[index].volumeInfo!.imageLinks!.thumbnail,
+                      ),
                     ),
                   );
                 }),

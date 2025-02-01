@@ -53,7 +53,7 @@ class HomeRepoImplementaion implements HomeRepo {
     try {
       var data = await apiService.get(
           endpoint:
-              'volumes?q=subject:computer science&Filtering=free-ebooks&Sorting=relevance');
+              'volumes?q=computer science&Filtering=free-ebooks&Sorting=relevance');
       List<BookModel> books = [];
       for (var item in data['items']) {
         books.add(BookModel.fromMap(item));
