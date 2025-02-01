@@ -15,17 +15,18 @@ class NewestListView extends StatelessWidget {
         if (state is NewestBooksSuccess) {
           return Expanded(
             child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 padding: EdgeInsets.zero,
                 itemCount: state.books.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: BookListViewItem(
                       imageUrl:
                           state.books[index].volumeInfo!.imageLinks!.thumbnail,
                       title: state.books[index].volumeInfo!.title,
-                      author: state.books[index].volumeInfo!.authors![0],
+                      author: state.books[index].volumeInfo!.authors?[0] ??
+                          'Not Found',
                       rating: state.books[index].volumeInfo!.averageRating,
                       count: state.books[index].volumeInfo!.ratingsCount,
                     ),
@@ -37,7 +38,7 @@ class NewestListView extends StatelessWidget {
             errorMessage: state.errorMessage,
           );
         } else {
-          return const CustomLoadingIndecator();
+          return const Center(child: CustomLoadingIndecator());
         }
       },
     );
