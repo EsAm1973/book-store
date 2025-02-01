@@ -1,6 +1,7 @@
 import 'package:bookly_app/Core/utils/app_router.dart';
 import 'package:bookly_app/Core/utils/styles.dart';
 import 'package:bookly_app/Core/widgets/custom_loading_indecator.dart';
+import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
 import 'package:bookly_app/Features/home/presentation/views/widgets/book_rating_bestseller_item.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -8,22 +9,13 @@ import 'package:go_router/go_router.dart';
 
 class BookListViewItem extends StatelessWidget {
   const BookListViewItem({
-    super.key,
-    required this.imageUrl,
-    required this.title,
-    required this.author,
-    required this.rating,
-    required this.count,
+    super.key, required this.bookModel,
   });
-  final String? imageUrl;
-  final String? title;
-  final String? author;
-  final int? rating;
-  final int? count;
+  final BookModel bookModel;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => {GoRouter.of(context).push(AppRouter.kBookDetails)},
+      onTap: () => {GoRouter.of(context).push(AppRouter.kBookDetails,extra: bookModel)},
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -34,7 +26,7 @@ class BookListViewItem extends StatelessWidget {
                 child: AspectRatio(
                     aspectRatio: 3.0 / 4,
                     child: CachedNetworkImage(
-                      imageUrl: imageUrl!,
+                      imageUrl: bookModel.volumeInfo!.imageLinks!.thumbnail ?? '',
                       fit: BoxFit.fill,
                       placeholder: (context, url) =>
                           const CustomLoadingIndecator(),
@@ -53,7 +45,7 @@ class BookListViewItem extends StatelessWidget {
                 child: Text(
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  title!,
+                  bookModel.volumeInfo!.title!,
                   style:
                       Styles.textStyle20.copyWith(fontWeight: FontWeight.w600),
                 ),
@@ -61,7 +53,7 @@ class BookListViewItem extends StatelessWidget {
               const SizedBox(
                 height: 3,
               ),
-              Text(author!, style: Styles.textStyle14),
+              Text(bookModel.volumeInfo!.authors![0], style: Styles.textStyle14),
               const SizedBox(
                 height: 3,
               ),
@@ -74,8 +66,8 @@ class BookListViewItem extends StatelessWidget {
                         .copyWith(fontWeight: FontWeight.bold),
                   ),
                   BookRating(
-                    rating: rating ?? 0,
-                    count: count ?? 0,
+                    rating: bookModel.volumeInfo!.averageRating ?? 0,
+                    count: bookModel.volumeInfo!.ratingsCount ?? 0,
                   ),
                 ],
               ),
