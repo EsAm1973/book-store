@@ -17,7 +17,7 @@ class _BookDetailsViewState extends State<BookDetailsView> {
     // TODO: implement initState
     super.initState();
     BlocProvider.of<SimilerbooksCubit>(context).fetchSimilerBooks(
-        category: widget.bookModel.volumeInfo!.categories![0]);
+        category: widget.bookModel.volumeInfo!.categories?[0]??'Not Have Category');
   }
 
   @override

@@ -6,7 +6,7 @@ import 'package:equatable/equatable.dart';
 
 part 'searchcubit_state.dart';
 
-class SearchcubitCubit extends Cubit<SearchcubitState> {
+class SearchcubitCubit extends Cubit<SearchCubitState> {
   SearchcubitCubit(this.searchRepo) : super(SearchcubitInitial());
   final SearchRepo searchRepo;
   Timer? debounce;
@@ -32,5 +32,11 @@ class SearchcubitCubit extends Cubit<SearchcubitState> {
         }
       });
     });
+  }
+
+  @override
+  Future<void> close() {
+    debounce?.cancel();
+    return super.close();
   }
 }

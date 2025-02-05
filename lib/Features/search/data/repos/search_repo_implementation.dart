@@ -12,11 +12,12 @@ class SearchRepoImplementation implements SearchRepo {
     required this.apiService,
   });
   @override
+  @override
   Future<Either<Failure, List<BookModel>>> searchedBooks(String query) async {
     try {
       var result = await apiService.get(
-          endpoint:
-              'https://www.googleapis.com/books/v1/volumes?q=subject:computer science&Filtering=free-ebooks&Sorting=relevance&maxResults=40');
+        endpoint: 'volumes?q=$query&filter=free-ebooks',
+      );
       final items = result['items'] as List<dynamic>;
       if (items.isEmpty) {
         return const Right([]);
@@ -32,7 +33,7 @@ class SearchRepoImplementation implements SearchRepo {
       if (e is DioException) {
         return Left(ServerFailure.fromDioException(e));
       }
-      return left(ServerFailure(errorMessage: e.toString()));
+      return Left(ServerFailure(errorMessage: e.toString()));
     }
   }
 }

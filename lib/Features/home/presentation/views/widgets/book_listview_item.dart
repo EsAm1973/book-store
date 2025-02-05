@@ -9,13 +9,15 @@ import 'package:go_router/go_router.dart';
 
 class BookListViewItem extends StatelessWidget {
   const BookListViewItem({
-    super.key, required this.bookModel,
+    super.key,
+    required this.bookModel,
   });
   final BookModel bookModel;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => {GoRouter.of(context).push(AppRouter.kBookDetails,extra: bookModel)},
+      onTap: () =>
+          {GoRouter.of(context).push(AppRouter.kBookDetails, extra: bookModel)},
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -26,7 +28,8 @@ class BookListViewItem extends StatelessWidget {
                 child: AspectRatio(
                     aspectRatio: 3.0 / 4,
                     child: CachedNetworkImage(
-                      imageUrl: bookModel.volumeInfo!.imageLinks!.thumbnail ?? '',
+                      imageUrl:
+                          bookModel.volumeInfo!.imageLinks!.thumbnail ?? '',
                       fit: BoxFit.fill,
                       placeholder: (context, url) =>
                           const CustomLoadingIndecator(),
@@ -53,7 +56,8 @@ class BookListViewItem extends StatelessWidget {
               const SizedBox(
                 height: 3,
               ),
-              Text(bookModel.volumeInfo!.authors![0], style: Styles.textStyle14),
+              Text(bookModel.volumeInfo!.authors?[0] ?? 'Not Found Author',
+                  style: Styles.textStyle14),
               const SizedBox(
                 height: 3,
               ),

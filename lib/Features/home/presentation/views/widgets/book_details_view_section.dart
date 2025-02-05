@@ -33,11 +33,12 @@ class BookDetailsSection extends StatelessWidget {
         Opacity(
           opacity: 0.8,
           child: Text(
+            textAlign: TextAlign.center,
             style: Styles.textStyle18.copyWith(
               fontStyle: FontStyle.italic,
               fontWeight: FontWeight.w500,
             ),
-            bookModel.volumeInfo!.authors![0],
+            bookModel.volumeInfo!.authors?[0]??'Not Have Author',
           ),
         ),
         const SizedBox(
